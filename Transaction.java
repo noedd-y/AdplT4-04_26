@@ -1,11 +1,11 @@
 public class Transaction {
     Book book;
-    Member member;
+    User user;
     String transactionDate;
     String returnDate;
-    public Transaction(Book book, Member member, String transactionDate, String returnDate) {
+    public Transaction(Book book, User user, String transactionDate, String returnDate) {
         this.book = book;
-        this.member = member;
+        this.user = user;
         this.transactionDate = transactionDate;
         this.returnDate = returnDate;
     }
@@ -16,11 +16,11 @@ public class Transaction {
     public void setBook(Book book) {
         this.book = book;
     }
-    public Member getMember() {
-        return member;
+    public User getUser() {
+        return user;
     }
-    public void setMember(Member member) {
-        this.member = member;
+    public void setUser(User user) {
+        this.user = user;
     }
     public String getTransactionDate() {
         return transactionDate;

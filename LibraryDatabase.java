@@ -1,4 +1,3 @@
-import java.lang.reflect.Member;
 import java.util.ArrayList;
 
 public class LibraryDatabase {
@@ -13,7 +12,7 @@ public class LibraryDatabase {
     }
 
     private ArrayList<Book> books;
-    private ArrayList<Member> members;
+    private ArrayList<User> members;
     private ArrayList<Transaction> transactions;
 
     void addBook(Book target){
@@ -28,7 +27,7 @@ public class LibraryDatabase {
         return books.contains(target);
     }
     
-    void addMember(Member user){
+    void addMember(User user){
         members.add(user);
     }
 
