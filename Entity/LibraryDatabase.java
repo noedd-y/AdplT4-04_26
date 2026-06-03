@@ -1,3 +1,4 @@
+package Entity;
 import java.util.ArrayList;
 
 public class LibraryDatabase {
@@ -15,23 +16,23 @@ public class LibraryDatabase {
     private ArrayList<User> members;
     private ArrayList<Transaction> transactions;
 
-    void addBook(Book target){
+    public void addBook(Book target){
         books.add(target);
     }
 
-    boolean removeBook(Book target){
+    public boolean removeBook(Book target){
         return books.remove(target);
     }
 
-    boolean findBook(Book target){
+    public boolean findBook(Book target){
         return books.contains(target);
     }
     
-    void addMember(User user){
+    public void addMember(User user){
         members.add(user);
     }
 
-    void saveTransaction(Transaction trans){
+    public void saveTransaction(Transaction trans){
         transactions.add(trans);
     }
 }

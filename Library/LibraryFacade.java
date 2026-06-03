@@ -1,3 +1,7 @@
+package Library;
+
+import Entity.*;
+
 public class LibraryFacade {
     private LibraryDatabase database;
 

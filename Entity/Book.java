@@ -1,3 +1,6 @@
+package Entity;
+import State.BookState;
+
 public class Book {
     String title;
     String category;
