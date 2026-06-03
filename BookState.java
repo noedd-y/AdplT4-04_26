@@ -1,7 +1,7 @@
 public interface BookState {
-    void borrow();
-    void returnBook();
-    void reserve();
+    boolean borrow();
+    boolean returnBook();
+    boolean reserve();
 
     String getState();
 }
@@ -9,21 +9,22 @@ public interface BookState {
 class AvailableState implements BookState {
 
     @Override
-    public void borrow() {
+    public boolean borrow() {
         // able to borrow the book, change state to Borrowed
         // make transaction, save to database, and change state to Borrowed
+        return true;
     }
 
     @Override
-    public void reserve() {
+    public boolean reserve() {
         // able to reserve the book, change state to Reserved
-        
+        return true;
     }
 
     @Override
-    public void returnBook() {
+    public boolean returnBook() {
         // unable to return the book, since it's already available
-        
+        return false;
     }
 
     @Override
@@ -35,21 +36,21 @@ class AvailableState implements BookState {
 class BorrowedState implements BookState {
     
     @Override
-    public void borrow() {
+    public boolean borrow() {
         // unable to borrow the book, since it's already borrowed
-        
+        return false;
     }
 
     @Override
-    public void reserve() {
+    public boolean reserve() {
         // unable to reserve the book, since it's already borrowed
-        
+        return false;
     }
 
     @Override
-    public void returnBook() {
+    public boolean returnBook() {
         // set state to Available, and save transaction to database
-        
+        return true;
     }
 
     @Override
@@ -62,21 +63,21 @@ class BorrowedState implements BookState {
 class ReservedState implements BookState {
     
     @Override
-    public void borrow() {
+    public boolean borrow() {
         // unable to borrow the book, since it's already reserved
-        
+        return false;
     }
 
     @Override
-    public void reserve() {
+    public boolean reserve() {
         // unable to reserve the book, since it's already reserved
-        
+        return false;
     }
 
     @Override
-    public void returnBook() {
+    public boolean returnBook() {
         // unable to return the book, since its not yet borrowed
-        
+        return false;
     }
 
     @Override
@@ -90,21 +91,21 @@ class LostState implements BookState {
 
     
     @Override
-    public void borrow() {
+    public boolean borrow() {
         // unable to borrow the book, since it's already lost
-        
+        return false;
     }
 
     @Override
-    public void reserve() {
+    public boolean reserve() {
         // unable to reserve the book, since it's already lost
-        
+        return false;
     }
 
     @Override
-    public void returnBook() {
+    public boolean returnBook() {
         // unable to return the book, since it's already lost
-        
+        return false;
     }
 
     @Override
