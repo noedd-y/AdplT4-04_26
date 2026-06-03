@@ -1,7 +1,7 @@
-public class Member {
+public class User {
     String namaDepan;
     String namaBelakang;
-    public Member(String namaDepan, String namaBelakang) {
+    public User(String namaDepan, String namaBelakang) {
         this.namaDepan = namaDepan;
         this.namaBelakang = namaBelakang;
     }
