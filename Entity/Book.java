@@ -1,5 +1,5 @@
-package Entity;
-import State.*;
+package entity;
+import states.*;
 
 public class Book {
     String title;

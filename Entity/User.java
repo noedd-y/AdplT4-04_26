@@ -1,4 +1,4 @@
-package Entity;
+package entity;
 public class User {
     String namaDepan;
     String namaBelakang;

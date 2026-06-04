@@ -1,5 +1,5 @@
-package State;
-import Entity.Book;
+package states;
+import entity.Book;
 
 public class AvailableState implements BookState {
 
