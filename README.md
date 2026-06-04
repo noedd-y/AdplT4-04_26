@@ -54,12 +54,12 @@ Tambahan:
 
 --------------------------------------
 
-Note 1:
+Note 1.0:
 Factory untuk implementasi buku tidak terlalu efektif karena, dengan asumsi semua buku di perpus adalah buku fisik, tidak ada yang membedakan atribut atau method baru buku dengan satu sama lain.
 
 --------------------------------------
 
-Note 2:
+Note 2.0:
 Dengan adanya transaksi yang dibuat untuk semua transaksi buku yang ada (e.g. meminjam, mereservasi, mengembalikan), awalnya dibuat dengan mencatat date transaksi dan return date (untuk return). Dengan diskusi lebih lanjut dinyatakan transaksi bisa dibuat multiple tipe dan mengimplementasikan pattern design factory, karena meminjam belum tentu ada return date, atau mereservasi bisa mempunyai date untuk mengambil dan bisa dicancel.
 
 Note 2.1:
@@ -67,3 +67,8 @@ Factory ingin dibuat untuk 3 transaksi, namun mengembalilkan mungkin tidak terla
 
 Note 2.2:
 Setelah konsiderasi lagi, karena transaksi adalah riwayat, dan bersifat immutable (read only, tidak bisa diubah), mungkin lebih baik transaksi di simpelkan menjadi 1 kelas lagi daripada membuat subclasses dan factory, dengan attribut yang dapat bersifat null (mengunakan method overloading) untuk tipe transaksi tertentu, dan tambahan variable untuk menyatakan tipe transaksinya.
+
+------------
+
+Note 3.0:
+Setelah implementasi design pattern command, ternyata tidak terlalu efektif karena setiap command untuk setiap buku dan setiap user menjadi object baru yang biasanya hanya dipakai sekali, mungkin bisa dipertimbangkan
