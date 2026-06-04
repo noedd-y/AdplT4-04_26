@@ -64,3 +64,6 @@ Dengan adanya transaksi yang dibuat untuk semua transaksi buku yang ada (e.g. me
 
 Note 2.1:
 Factory ingin dibuat untuk 3 transaksi, namun mengembalilkan mungkin tidak terlalu terkena impact dan kurang efektif dari implementasi factory karena tidak ada bedanya dari concrete class dan abstract classnya. Namun factory masih akan digunakan karena reservasi dan meminjam masih butuh method dan attribut additional. mungkin return bisa ditambah jika bukunya rusak atau tidak.
+
+Note 2.2:
+Setelah konsiderasi lagi, karena transaksi adalah riwayat, dan bersifat immutable (read only, tidak bisa diubah), mungkin lebih baik transaksi di simpelkan menjadi 1 kelas lagi daripada membuat subclasses dan factory, dengan attribut yang dapat bersifat null (mengunakan method overloading) untuk tipe transaksi tertentu, dan tambahan variable untuk menyatakan tipe transaksinya.
