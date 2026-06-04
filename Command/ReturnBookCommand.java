@@ -7,20 +7,24 @@ public class ReturnBookCommand implements Command {
     private LibraryFacade libraryFacade;
     private Book book;
     private User user;
-    private String transactionDate;
-    private String returnDate;
-    public ReturnBookCommand(LibraryFacade libraryFacade, Book book, User user, String transactionDate, String returnDate) {
+    public ReturnBookCommand(LibraryFacade libraryFacade, Book book, User user) {
         this.libraryFacade = libraryFacade;
         this.book = book;
         this.user = user;
-        this.transactionDate = transactionDate;
-        this.returnDate = returnDate;
     }
 
     @Override
     public void execute() {
         String result = libraryFacade.returnBook(book, user);
         System.out.println(result);
+    }
+
+    @Override
+    public boolean undo() {
+        //extend undo to re-borrow the book after returning it
+        String result = libraryFacade.borrowBook(book, user);
+        System.out.println(result);
+        return true;
     }
     
 }
