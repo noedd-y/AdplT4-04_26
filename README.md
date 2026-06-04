@@ -4,12 +4,12 @@ Sistem ini mengelola koleksi buku (menambah, menghapus, mencari, melacak riwayat
 End User
 - Librarian
 - User (Member)
-- Admin (opsional)
 
 Entitas (Selain End User)
 - Buku 
-- Database perpus yang menyimpan buku yang pernah ada, anggota perpustakaan, semua transaksi/peminjaman 
 - Transaksi Riwayat peminjaman/pengembalian
+
+Database perpus yang menyimpan buku yang pernah ada, anggota perpustakaan, semua transaksi/peminjaman 
 
 User dapat:
 - Meminjam buku (Borrow)
@@ -61,3 +61,6 @@ Factory untuk implementasi buku tidak terlalu efektif karena, dengan asumsi semu
 
 Note 2:
 Dengan adanya transaksi yang dibuat untuk semua transaksi buku yang ada (e.g. meminjam, mereservasi, mengembalikan), awalnya dibuat dengan mencatat date transaksi dan return date (untuk return). Dengan diskusi lebih lanjut dinyatakan transaksi bisa dibuat multiple tipe dan mengimplementasikan pattern design factory, karena meminjam belum tentu ada return date, atau mereservasi bisa mempunyai date untuk mengambil dan bisa dicancel.
+
+Note 2.1:
+Factory ingin dibuat untuk 3 transaksi, namun mengembalilkan mungkin tidak terlalu terkena impact dan kurang efektif dari implementasi factory karena tidak ada bedanya dari concrete class dan abstract classnya. Namun factory masih akan digunakan karena reservasi dan meminjam masih butuh method dan attribut additional. mungkin return bisa ditambah jika bukunya rusak atau tidak.
