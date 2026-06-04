@@ -40,6 +40,24 @@ Buku dapat:
 
 ---------------------------------------
 
-Ide Pattern Strategy:
-- Singleton, karena hanya akan mengunakan 1 database (untuk sementara)
-- State, untuk implementasi status buku
+Ide Pattern Strategy yang mencakupi minimum requirement:
+- Singleton (creational), karena hanya akan mengunakan 1 database (untuk sementara)
+- State (behaviorial), untuk implementasi status buku
+- Factory (creational), untuk implementasi tipe buku
+- Strategy (behavioral), untuk sorting buku dari bbrp kategori
+- Facade (structure), untuk abstraksi semua logic
+- command (behavioral), karena banyak perintah
+
+Tambahan:
+- Builder, karena buku mungkin punya attribut yang lainya tidak butuh 
+- Decorator, untuk buku yang memiliki fitur beda
+
+--------------------------------------
+
+Note 1:
+Factory untuk implementasi buku tidak terlalu efektif karena, dengan asumsi semua buku di perpus adalah buku fisik, tidak ada yang membedakan atribut atau method baru buku dengan satu sama lain.
+
+--------------------------------------
+
+Note 2:
+Dengan adanya transaksi yang dibuat untuk semua transaksi buku yang ada (e.g. meminjam, mereservasi, mengembalikan), awalnya dibuat dengan mencatat date transaksi dan return date (untuk return). Dengan diskusi lebih lanjut dinyatakan transaksi bisa dibuat multiple tipe dan mengimplementasikan pattern design factory, karena meminjam belum tentu ada return date, atau mereservasi bisa mempunyai date untuk mengambil dan bisa dicancel.
