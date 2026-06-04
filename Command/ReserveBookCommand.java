@@ -1,6 +1,6 @@
-package Command;
-import Entity.*;
-import Library.LibraryFacade;
+package command;
+import entity.*;
+import facade.LibraryFacade;
 
 //concrete command for reserving a book, implements Command interface
 public class ReserveBookCommand implements Command {
@@ -19,7 +19,7 @@ public class ReserveBookCommand implements Command {
 
     @Override
     public void execute() {
-        String result = libraryFacade.reserveBook(book, user, transactionDate, returnDate);
+        String result = libraryFacade.reserveBook(book, user);
         System.out.println(result);
     }
     

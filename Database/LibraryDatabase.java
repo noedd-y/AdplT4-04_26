@@ -1,9 +1,6 @@
-package Database;
+package database;
+import entity.*;
 import java.util.ArrayList;
-
-import Entity.Book;
-import Entity.Transaction;
-import Entity.User;
 
 public class LibraryDatabase {
     private static LibraryDatabase instance;

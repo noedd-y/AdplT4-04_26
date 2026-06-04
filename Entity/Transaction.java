@@ -1,4 +1,4 @@
-package Entity;
+package entity;
 public class Transaction {
     Book book;
     User user;

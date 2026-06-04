@@ -1,5 +1,5 @@
-package State;
-import Entity.Book;
+package states;
+import entity.Book;
 
 public interface BookState {
     boolean borrow(Book book);

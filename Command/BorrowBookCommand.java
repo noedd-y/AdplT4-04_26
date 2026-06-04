@@ -1,6 +1,6 @@
-package Command;
-import Entity.*;
-import Library.LibraryFacade;
+package command;
+import entity.*;
+import facade.LibraryFacade;
 
 public class BorrowBookCommand implements Command {
     private LibraryFacade libraryFacade;
@@ -18,7 +18,7 @@ public class BorrowBookCommand implements Command {
 
     @Override
     public void execute() {
-        String result = libraryFacade.borrowBook(book, user, transactionDate, returnDate);
+        String result = libraryFacade.borrowBook(book, user);
         System.out.println(result);
     }
     
