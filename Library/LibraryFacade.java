@@ -1,5 +1,6 @@
 package Library;
 
+import Database.LibraryDatabase;
 import Entity.*;
 
 public class LibraryFacade {
@@ -14,9 +15,16 @@ public class LibraryFacade {
     }
 
     public boolean removeBook(Book book) {
-        return database.removeBook(book);
+        boolean found = database.findBook(book);
+        if (!found) {
+            System.out.println("Book not found in database");
+            return false;
+        }
+        database.removeBook(book);
+        return true;
     }
 
+    //seharusnya via title
     public boolean findBook(Book book) {
         return database.findBook(book);
     }

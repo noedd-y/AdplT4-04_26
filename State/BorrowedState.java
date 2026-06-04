@@ -1,22 +1,24 @@
 package State;
+import Entity.Book;
 
-class BorrowedState implements BookState {
+public class BorrowedState implements BookState {
     
     @Override
-    public boolean borrow() {
+    public boolean borrow(Book book) {
         // unable to borrow the book, since it's already borrowed
         return false;
     }
 
     @Override
-    public boolean reserve() {
+    public boolean reserve(Book book) {
         // unable to reserve the book, since it's already borrowed
         return false;
     }
 
     @Override
-    public boolean returnBook() {
+    public boolean returnBook(Book book) {
         // set state to Available, and save transaction to database
+        book.setState(new AvailableState());
         return true;
     }
 
