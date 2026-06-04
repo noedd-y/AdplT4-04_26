@@ -91,6 +91,23 @@ public class LibraryFacade {
     
         //if book is not available, unable to reserve the book
         else return "Book is not available for reservation";
+    }
 
+    public String cancelReservation(Book book, User user) {
+        //if book not in database, unable to cancel reservation
+        if(!database.findBook(book)) {
+            return "Book not found in database";
+        }
+
+        //if book is reserved, set state to Available, and save transaction to database
+        if (book.cancelReservation()) {
+            LocalDate transactionDate = LocalDate.now();
+            Transaction transaction = new Transaction(Transaction.TransactionType.CANCEL_RESERVATION, book, user, transactionDate);
+            saveTransaction(transaction);
+            return "Reservation cancelled successfully";
+        }
+
+        //if book is not reserved, unable to cancel reservation
+        else return "Book is not reserved";
     }
 }

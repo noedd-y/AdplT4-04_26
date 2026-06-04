@@ -51,4 +51,8 @@ public class Book {
         return state.reserve(this);
     }
 
+    public boolean cancelReservation() {
+        return state.cancelReservation(this);
+    }
+
 }

@@ -22,6 +22,13 @@ public class ReservedState implements BookState {
     }
 
     @Override
+    public boolean cancelReservation(Book book) {
+        // able to cancel reservation, since the book is reserved
+        book.setState(new AvailableState());
+        return true;
+    }   
+
+    @Override
     public String getState() {
         return "Reserved";
     }
