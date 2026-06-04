@@ -1,21 +1,22 @@
 package State;
+import Entity.Book;
 
-class BrokenState implements BookState {
+public class BrokenState implements BookState {
 
     @Override
-    public boolean borrow() {
+    public boolean borrow(Book book) {
         // unable to borrow the book, since it's already broken
         return false;
     }
 
     @Override
-    public boolean reserve() {
+    public boolean reserve(Book book) {
         // unable to reserve the book, since it's already broken
         return false;
     }
 
     @Override
-    public boolean returnBook() {
+    public boolean returnBook(Book book) {
         // unable to return the book, since it's already broken
         return false;
     }

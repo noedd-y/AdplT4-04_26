@@ -1,5 +1,5 @@
 package Entity;
-import State.BookState;
+import State.*;
 
 public class Book {
     String title;
@@ -12,6 +12,7 @@ public class Book {
         this.category = category;
         this.author = author;
         this.publishedDate = publishedDate;
+        this.state = new AvailableState(); //default state is available when book is created
     }
     //getters
     public String getTitle() {
@@ -39,15 +40,15 @@ public class Book {
 
     //methods
     public boolean borrow() {
-        return state.borrow();
+        return state.borrow(this);
     }
 
     public boolean returnBook() {
-        return state.returnBook();
+        return state.returnBook(this);
     }
 
     public boolean reserve() {
-        return state.reserve();
+        return state.reserve(this);
     }
 
 }

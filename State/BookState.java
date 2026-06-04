@@ -1,8 +1,10 @@
 package State;
+import Entity.Book;
+
 public interface BookState {
-    boolean borrow();
-    boolean returnBook();
-    boolean reserve();
+    boolean borrow(Book book);
+    boolean returnBook(Book book);
+    boolean reserve(Book book);
 
     String getState();
 }
