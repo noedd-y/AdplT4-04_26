@@ -72,3 +72,11 @@ Setelah konsiderasi lagi, karena transaksi adalah riwayat, dan bersifat immutabl
 
 Note 3.0:
 Setelah implementasi design pattern command, ternyata tidak terlalu efektif karena setiap command untuk setiap buku dan setiap user menjadi object baru yang biasanya hanya dipakai sekali, mungkin bisa dipertimbangkan
+
+Note 3.1:
+Implementasi command ditetapkan, karena command reservasi bisa di cancel (undo) dan jika command return book di undo, maka mengcancel return = extend borrow book, dan create new transaction karena memanggil method borrow book lagi (dari facade)
+
+-----------
+
+Note 4.0:
+Implementasi proxy dipertimbangkan untuk membelah akses user biasa dengan librarian (admin), namun bisa juga membelah facade menjadi 2, user facade dan librarian (admin) facade. Jadi, akses untuk memanggil method sudah dibagi secara struktur kelas.
