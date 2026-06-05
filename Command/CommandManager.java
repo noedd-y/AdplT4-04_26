@@ -4,16 +4,16 @@ import java.util.Stack;
 
 //invoker class that executes commands
 public class CommandManager {
-    private Stack<Command> commandHistory = new Stack<>();
+    private Stack<CommandInterface> commandHistory = new Stack<>();
 
-    public void executeCommand(Command command) {
+    public void executeCommand(CommandInterface command) {
         command.execute();
         commandHistory.push(command);
     }
 
     public void undo() {
         if (!commandHistory.isEmpty()) {
-            Command lastCommand = commandHistory.pop();
+            CommandInterface lastCommand = commandHistory.pop();
             if (!lastCommand.undo()) {
                 System.out.println("Failed to undo the last command.");
                 commandHistory.push(lastCommand); // push it back since undo failed

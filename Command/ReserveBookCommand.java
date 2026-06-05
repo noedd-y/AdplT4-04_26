@@ -3,7 +3,7 @@ import entity.*;
 import facade.LibraryFacade;
 
 //concrete command for reserving a book, implements Command interface
-public class ReserveBookCommand implements Command {
+public class ReserveBookCommand implements CommandInterface {
     private LibraryFacade libraryFacade;
     private Book book;
     private User user;

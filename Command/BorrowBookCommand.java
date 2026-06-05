@@ -3,7 +3,7 @@ import entity.*;
 import facade.LibraryFacade;
 
 //concrete command for borrowing a book, implements Command interface
-public class BorrowBookCommand implements Command {
+public class BorrowBookCommand implements CommandInterface {
     private LibraryFacade libraryFacade;
     private Book book;
     private User user;
