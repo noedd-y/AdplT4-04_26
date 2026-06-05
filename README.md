@@ -92,3 +92,11 @@ Akan dicoba untuk menambah sort untuk transaction (yang sebenrnya lebih masuk ak
 
 Note 5.1
 Karena sebenernya sort transaction masih beda daripada book sort, maka akan dibedakan strateginya (kecuali sort transaction dengan buku).
+
+---------
+Note 6.0
+Karena reservasi menunggu buku yang sedang di borrow sampai available, observer design pattern bisa di implementasikan. Namun, setelah di check lagi tidak ada kelas yang bagus menjadi publisher. 
+
+-------
+Note 7.0
+Facade memiliki tanggung jawab untuk menambah data ke database yang seharusnya tidak boleh. akan diberi kelas additional untuk memiliki tanggung jawab itu.
