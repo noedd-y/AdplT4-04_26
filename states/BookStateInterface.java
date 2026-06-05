@@ -1,7 +1,7 @@
 package states;
 import entity.Book;
 
-public interface BookState {
+public interface BookStateInterface {
     boolean borrow(Book book);
     boolean returnBook(Book book);
     boolean reserve(Book book);

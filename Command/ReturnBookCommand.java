@@ -3,7 +3,7 @@ import entity.*;
 import facade.LibraryFacade;
 
 //concrete command for returning a book, implements Command interface
-public class ReturnBookCommand implements Command {
+public class ReturnBookCommand implements CommandInterface {
     private LibraryFacade libraryFacade;
     private Book book;
     private User user;

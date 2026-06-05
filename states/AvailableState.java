@@ -1,7 +1,7 @@
 package states;
 import entity.Book;
 
-public class AvailableState implements BookState {
+public class AvailableState implements BookStateInterface {
 
     @Override
     public boolean borrow(Book book) {

@@ -1,7 +1,7 @@
 package states;
 import entity.Book;
 
-public class LostState implements BookState {
+public class LostState implements BookStateInterface {
 
     
     @Override
