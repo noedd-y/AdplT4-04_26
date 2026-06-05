@@ -23,6 +23,12 @@ public class LostState implements BookState {
     }
 
     @Override
+    public boolean cancelReservation(Book book) {
+        // unable to cancel reservation, since the book is not reserved
+        return false;
+    }   
+
+    @Override
     public String getState() {
         return "Lost";
     }

@@ -1,5 +1,7 @@
 package facade;
 
+import java.time.LocalDate;
+
 import database.LibraryDatabase;
 import entity.*;
 
@@ -15,16 +17,11 @@ public class LibraryFacade {
         database.addMember(user);
     }
 
-    //Transaction methods
-    public void saveTransaction(Transaction transaction) {
+    //Transaction methods, sace transaction to database
+    //saveTransaction is private since it is only used internally by the facade, and not exposed to the client
+    private void saveTransaction(Transaction transaction) {
         database.saveTransaction(transaction);
     }
-
-    // public Transaction createTransaction(Book book, User user) {
-        
-    //     Transaction transaction = new Transaction(book, user, "2024-06-01", "2024-06-15");
-    //     return database.createTransaction(book, user);
-    // }
 
     //Book methods
     public void addBook(Book book) {
@@ -50,9 +47,9 @@ public class LibraryFacade {
 
         //if book is available, set state to Borrowed, and save transaction to database
         if (book.borrow()) {
-            String transactionDate = "2024-06-01"; // Example transaction date
-            String returnDate = "2024-06-15"; // Example return date
-            Transaction transaction = new Transaction(book, user, transactionDate, returnDate);
+            LocalDate transactionDate = LocalDate.now();
+            LocalDate returnDate = transactionDate.plusDays(14); 
+            Transaction transaction = new Transaction(Transaction.TransactionType.BORROW, book, user, transactionDate, returnDate);
             saveTransaction(transaction);
             return "Book borrowed successfully";
         } 
@@ -67,9 +64,8 @@ public class LibraryFacade {
 
         //if book is borrowed, set state to Available, and save transaction to database
         if (book.returnBook()) {
-            String transactionDate = "2024-06-01"; // Example transaction date
-            String returnDate = "2024-06-15"; // Example return date
-            Transaction transaction = new Transaction(book, user, transactionDate, returnDate);
+            LocalDate transactionDate = LocalDate.now();
+            Transaction transaction = new Transaction(Transaction.TransactionType.RETURN, book, user, transactionDate, book.getState());
             saveTransaction(transaction);
             return "Book returned successfully";
         }
@@ -87,15 +83,31 @@ public class LibraryFacade {
 
         //if book is available, set state to Reserved, and save transaction to database
         if (book.reserve()) {
-            String transactionDate = "2024-06-01"; // Example transaction date
-            String returnDate = "2024-06-15"; // Example return date
-            Transaction transaction = new Transaction(book, user, transactionDate, returnDate);
+            LocalDate transactionDate = LocalDate.now();
+            Transaction transaction = new Transaction(Transaction.TransactionType.RESERVE, book, user, transactionDate);
             saveTransaction(transaction);
             return "Book reserved successfully";
         }
     
         //if book is not available, unable to reserve the book
         else return "Book is not available for reservation";
+    }
 
+    public String cancelReservation(Book book, User user) {
+        //if book not in database, unable to cancel reservation
+        if(!database.findBook(book)) {
+            return "Book not found in database";
+        }
+
+        //if book is reserved, set state to Available, and save transaction to database
+        if (book.cancelReservation()) {
+            LocalDate transactionDate = LocalDate.now();
+            Transaction transaction = new Transaction(Transaction.TransactionType.CANCEL_RESERVATION, book, user, transactionDate);
+            saveTransaction(transaction);
+            return "Reservation cancelled successfully";
+        }
+
+        //if book is not reserved, unable to cancel reservation
+        else return "Book is not reserved";
     }
 }
