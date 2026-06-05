@@ -6,7 +6,7 @@ public class Book {
     String category;
     String author;
     String publishedDate;
-    BookState state;
+    BookStateInterface state;
     public Book(String title, String category, String author, String publishedDate) {
         this.title = title;
         this.category = category;
@@ -29,7 +29,7 @@ public class Book {
     }
 
     //Set state buat buku
-    public void setState(BookState state) {
+    public void setState(BookStateInterface state) {
         this.state = state;
     }
 
