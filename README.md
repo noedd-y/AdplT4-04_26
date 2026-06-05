@@ -80,3 +80,15 @@ Implementasi command ditetapkan, karena command reservasi bisa di cancel (undo) 
 
 Note 4.0:
 Implementasi proxy dipertimbangkan untuk membelah akses user biasa dengan librarian (admin), namun bisa juga membelah facade menjadi 2, user facade dan librarian (admin) facade. Jadi, akses untuk memanggil method sudah dibagi secara struktur kelas.
+
+Note 4.1
+Tidak jadi mengimplimentasikan proxy atau 2 tipe facade, karena authoritas sistem di facade =/= authoritas user. Jadi hanya facade saja. Authoritas tbd
+
+----------
+
+Note 5.0
+Setelah mengimplementasi sort untuk buku dengan design pattern strategy, dengan tujuan membantu librarian 
+Akan dicoba untuk menambah sort untuk transaction (yang sebenrnya lebih masuk akal daripada sorting book) karena ia adalah riwayat
+
+Note 5.1
+Karena sebenernya sort transaction masih beda daripada book sort, maka akan dibedakan strateginya (kecuali sort transaction dengan buku).
