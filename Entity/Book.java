@@ -54,5 +54,52 @@ public class Book {
     public boolean cancelReservation() {
         return state.cancelReservation(this);
     }
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((title == null) ? 0 : title.hashCode());
+        result = prime * result + ((category == null) ? 0 : category.hashCode());
+        result = prime * result + ((author == null) ? 0 : author.hashCode());
+        result = prime * result + ((publishedDate == null) ? 0 : publishedDate.hashCode());
+        return result;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Book other = (Book) obj;
+        if (title == null) {
+            if (other.title != null)
+                return false;
+        } else if (!title.equals(other.title))
+            return false;
+        if (category == null) {
+            if (other.category != null)
+                return false;
+        } else if (!category.equals(other.category))
+            return false;
+        if (author == null) {
+            if (other.author != null)
+                return false;
+        } else if (!author.equals(other.author))
+            return false;
+        if (publishedDate == null) {
+            if (other.publishedDate != null)
+                return false;
+        } else if (!publishedDate.equals(other.publishedDate))
+            return false;
+        return true;
+    }
+    @Override
+    public String toString() {
+        return "Book [title=" + title + ", category=" + category + ", author=" + author + ", publishedDate="
+                + publishedDate + ", state=" + state.getState() + "]";
+    }
 
+    
 }

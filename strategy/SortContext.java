@@ -1,10 +1,16 @@
 package strategy;
-import entity.Book;
 import java.util.ArrayList;
-public class SortContext {
-    private SortStrategyInterface sortStrategy;
+public class SortContext<T> {
+    private SortStrategyInterface<T> sortStrategy;
 
-    public void setSortStrategy(SortStrategyInterface sortStrategy) {
+    public SortContext() {
+        this.sortStrategy = null;
+    }
+    public SortContext(SortStrategyInterface<T> sortStrategy) {
+        this.sortStrategy = sortStrategy;
+    }
+
+    public void setSortStrategy(SortStrategyInterface<T> sortStrategy) {
         this.sortStrategy = sortStrategy;
     }
 
@@ -12,9 +18,9 @@ public class SortContext {
         this.sortStrategy = null;
     }
 
-    public void executeSort(ArrayList<Book> books) {
+    public void executeSort(ArrayList<T> data) {
         if (sortStrategy != null) {
-            sortStrategy.sortBooks(books);
+            sortStrategy.sort(data);
         } else {
             System.out.println("No sorting strategy set.");
         }

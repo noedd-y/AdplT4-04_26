@@ -24,8 +24,11 @@ public class LibraryDatabase {
     }
 
     //crud operations for books, members, and transactions
-    public void addBook(Book target){
-        books.add(target);
+    public boolean addBook(Book target){
+        if (!findBook(target)) {
+            return books.add(target);
+        }
+        return false;
     }
 
     public boolean removeBook(Book target){
@@ -36,11 +39,32 @@ public class LibraryDatabase {
         return books.contains(target);
     }
     
-    public void addMember(User user){
-        members.add(user);
+    public boolean addMember(User user){
+        if (!findMember(user)) {
+            return members.add(user);
+        }
+        return false;
     }
 
-    public void saveTransaction(Transaction trans){
-        transactions.add(trans);
+    public boolean findMember(User user){
+        return members.contains(user);
     }
+
+    public boolean saveTransaction(Transaction trans){
+        return transactions.add(trans);
+    }
+
+    public ArrayList<Book> getBooksList() {
+        return books;
+    }
+
+    public ArrayList<User> getMembersList() {
+        return members;
+    }
+
+    public ArrayList<Transaction> getTransactionsList() {
+        return transactions;
+    }
+
+    
 }
