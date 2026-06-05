@@ -1,20 +1,30 @@
 package entity;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import observer.BookAvailabilitySubject;
+import observer.ReservationObserver;
 import states.*;
 
-public class Book {
+public class Book implements BookAvailabilitySubject {
+    int id;
     String title;
     String category;
     String author;
-    String publishedDate;
+    LocalDate publishedDate;
     BookStateInterface state;
-    public Book(String title, String category, String author, String publishedDate) {
+    public Book(int id, String title, String category, String author, LocalDate publishedDate) {
+        this.id = id;
         this.title = title;
         this.category = category;
         this.author = author;
         this.publishedDate = publishedDate;
         this.state = new AvailableState(); //default state is available when book is created
     }
+
     //getters
+    public int getID() {
+        return id;
+    }
     public String getTitle() {
         return title;
     }
@@ -24,7 +34,7 @@ public class Book {
     public String getAuthor() {
         return author;
     }
-    public String getPublishedDate() {
+    public LocalDate getPublishedDate() {
         return publishedDate;
     }
 
@@ -97,9 +107,29 @@ public class Book {
     }
     @Override
     public String toString() {
-        return "Book [title=" + title + ", category=" + category + ", author=" + author + ", publishedDate="
-                + publishedDate + ", state=" + state.getState() + "]";
+        return title + ",\n" +
+            category + ",\n" +
+            author + ",\n" +
+            "published on " + publishedDate + ",\n" + 
+            "Status: " + state.getState();
     }
 
-    
+    private ArrayList<ReservationObserver> observers = new ArrayList<>();
+
+    @Override
+    public void addObserver(ReservationObserver o) {
+        observers.add(o);
+    }
+
+    @Override
+    public void removeObserver(ReservationObserver o) {
+        observers.remove(o);
+    }
+
+    @Override
+    public void notifyObservers(Book book) {
+        for (ReservationObserver o : observers) {
+            o.update(book);
+        }
+    }
 }

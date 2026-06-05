@@ -1,25 +1,36 @@
 package facade;
 
-import database.LibraryDatabase;
-import entity.*;
+import database.LibraryRepository;
+import entity.Book;
+import entity.Transaction;
+import entity.User;
 import java.time.LocalDate;
-import strategy.*;
+import strategy.SortContext;
+import strategy.SortStrategyInterface;
 
+//service layer
 public class LibraryFacade {
-    private LibraryDatabase database;
+    private LibraryRepository database;
 
-    public LibraryFacade() {
-        database = LibraryDatabase.getInstance();
+    //Constructor-based Dependency Injection, D in SOLID
+    //depends on the interface, unknown about the real database
+    public LibraryFacade(LibraryRepository database) {
+        this.database = database;
     }
 
     //High authority methods
     //Member methods
+    
     public boolean addMember(User user) {
         return database.addMember(user);
     }
 
-    public boolean findMember(User user) {
-        return database.findMember(user);
+    public boolean findMember(int id) {
+        return database.findMember(id);
+    }
+
+    public User findMember(String name) {
+        return database.findMember(name);
     }
 
     public String showMemberList(){
@@ -34,7 +45,7 @@ public class LibraryFacade {
     //Transaction methods, sace transaction to database
     //saveTransaction is private since it is only used internally by the facade, and not exposed to the client
     private void saveTransaction(Transaction transaction) {
-        database.saveTransaction(transaction);
+        database.addTransaction(transaction);
     }
 
     public String showTransactionHistory() {
@@ -47,16 +58,21 @@ public class LibraryFacade {
     }
 
     //Book methods
-    public boolean addBook(Book book) {
-        return database.addBook(book);
+    private static int bookIdCounter = 1;
+    public boolean addBook(String title, String category, String author, LocalDate publishedDate) {
+        return database.addBook(new Book(bookIdCounter++, title, category, author, publishedDate));
     }
 
-    public boolean findBook(Book book) {
-        return database.findBook(book);
+    public boolean findBook(int id) {
+        return database.findBook(id);
     }
 
-    public boolean removeBook(Book book) {
-        return database.removeBook(book);
+    public Book findBookTitle(String title) {
+        return database.findBookByTitle(title);
+    }
+
+    public boolean removeBook(int id) {
+        return database.removeBook(id);
     }
 
     public String showBookList() {
@@ -70,14 +86,15 @@ public class LibraryFacade {
 
     //low authority methods
     //Book state methods - methods for borrowing, returning, and reserving books
-    public String borrowBook(Book book, User user) {
+    public String borrowBook(String bookTitle, User user) {
+        Book book = findBookTitle(bookTitle);
         //if book not in database, unable to borrow the book
-        if(!findBook(book)) {
+        if(!findBook(book.getID())) {
             return "Book not found in database";
         }
 
         // if user not registered
-        if(!findMember(user)) {
+        if(!findMember(user.getId())) {
             return "User not found in database";
         }
 
@@ -92,38 +109,15 @@ public class LibraryFacade {
         else return "Book is not available for borrowing";
     }
 
-    public String returnBook(Book book, User user) {
-        //if book not in database, unable to return the book
-        if(!findBook(book)) {
+    public String reserveBook(String bookTitle, User user) {
+        Book book = findBookTitle(bookTitle);
+        //if book not in database, unable to borrow the book
+        if(!findBook(book.getID())) {
             return "Book not found in database";
         }
 
         // if user not registered
-        if(!findMember(user)) {
-            return "User not found in database";
-        }
-
-        //if book is borrowed, set state to Available, and save transaction to database
-        if (book.returnBook()) {
-            LocalDate transactionDate = LocalDate.now();
-            Transaction transaction = new Transaction(Transaction.TransactionType.RETURN, book, user, transactionDate, book.getState());
-            saveTransaction(transaction);
-            return "Book returned successfully";
-        }
-
-        //if book is not borrowed, unable to return the book
-        else return "Book is not borrowed";
-    
-    }
-
-    public String reserveBook(Book book, User user) {
-        //if book not in database, unable to reserve the book
-        if(!findBook(book)) {
-            return "Book not found in database";
-        }
-        
-        // if user not registered
-        if(!findMember(user)) {
+        if(!findMember(user.getId())) {
             return "User not found in database";
         }
         
@@ -139,14 +133,15 @@ public class LibraryFacade {
         else return "Book is not available for reservation";
     }
 
-    public String cancelReservation(Book book, User user) {
-        //if book not in database, unable to cancel reservation
-        if(!findBook(book)) {
+    public String cancelReservation(String bookTitle, User user) {
+        Book book = findBookTitle(bookTitle);
+        //if book not in database, unable to borrow the book
+        if(!findBook(book.getID())) {
             return "Book not found in database";
         }
 
         // if user not registered
-        if(!findMember(user)) {
+        if(!findMember(user.getId())) {
             return "User not found in database";
         }
 
@@ -171,4 +166,32 @@ public class LibraryFacade {
         SortContext<Transaction> sortContext = new SortContext<>(strategy);
         sortContext.executeSort(database.getTransactionsList());
     }
+
+    public String returnBook(String bookTitle, User user) {
+        Book book = findBookTitle(bookTitle);
+        //if book not in database, unable to borrow the book
+        if(!findBook(book.getID())) {
+            return "Book not found in database";
+        }
+
+        // if user not registered
+        if(!findMember(user.getId())) {
+            return "User not found in database";
+        }
+
+        //if book is borrowed, set state to Available, and save transaction to database
+        if (book.returnBook()) {
+            LocalDate transactionDate = LocalDate.now();
+            Transaction transaction = new Transaction(Transaction.TransactionType.RETURN, book, user, transactionDate, book.getState());
+            database.addTransaction(transaction);
+            return "Book returned successfully";
+        }
+
+        //if book is not borrowed, unable to return the book
+        else return "Book is not borrowed";
+    
+    }
+
+    
+
 }

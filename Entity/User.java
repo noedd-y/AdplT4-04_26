@@ -1,10 +1,19 @@
 package entity;
-public class User {
+
+import observer.ReservationObserver;
+
+public class User implements ReservationObserver{
+    int id;
     String firstName;
     String lastName;
-    public User(String firstName, String lastName) {
+    public User(int id, String firstName, String lastName) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getFirstName() {
@@ -18,6 +27,7 @@ public class User {
     public String getLastName() {
         return lastName;
     }
+    
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
@@ -59,8 +69,12 @@ public class User {
 
     @Override
     public String toString() {
-        return "User [firstName=" + firstName + ", lastName=" + lastName + "]";
+        return firstName + " " + lastName;
     }
-    
-    
+
+    @Override
+    public void update(Book book) {
+        // TODO Auto-generated method stub
+        System.out.println("Book "+book.getTitle()+" is available to be borrowed.");
+    } 
 }

@@ -113,7 +113,21 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return "Transaction [book=" + book + ", user=" + user + ", transactionDate=" + transactionDate + ", returnDate="
-                + returnDate + ", state=" + state + ", type=" + type + "]";
+        String out = 
+                "Transaction " + type + ":\n" +
+                "transactionDate=" + transactionDate + ",\n" +
+                book + ",\n" +
+                user + ",\n";
+
+        
+        if(this.type == TransactionType.BORROW) {
+            out += "returnDate=" + returnDate + ",\n";    
+        }
+
+        else if(this.type == TransactionType.RETURN) {
+            out += "book state after return: " + state + ",\n";
+        }
+
+        return out;
     }
 }

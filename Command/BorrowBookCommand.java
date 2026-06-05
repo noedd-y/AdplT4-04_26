@@ -5,17 +5,17 @@ import facade.LibraryFacade;
 //concrete command for borrowing a book, implements Command interface
 public class BorrowBookCommand implements CommandInterface {
     private LibraryFacade libraryFacade;
-    private Book book;
+    private String bookTitle;
     private User user;
-    public BorrowBookCommand(LibraryFacade libraryFacade, Book book, User user) {
+    public BorrowBookCommand(LibraryFacade libraryFacade, String bookTitle, User user) {
         this.libraryFacade = libraryFacade;
-        this.book = book;
+        this.bookTitle = bookTitle;
         this.user = user;
     }
 
     @Override
     public void execute() {
-        String result = libraryFacade.borrowBook(book, user);
+        String result = libraryFacade.borrowBook(bookTitle, user);
         System.out.println(result);
     }
     
