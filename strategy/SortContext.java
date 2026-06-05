@@ -18,9 +18,9 @@ public class SortContext<T> {
         this.sortStrategy = null;
     }
 
-    public void executeSort(ArrayList<T> data) {
+    public void executeSort(ArrayList<T> data, SortDirection dir) {
         if (sortStrategy != null) {
-            sortStrategy.sort(data);
+            sortStrategy.sort(data, dir);
         } else {
             System.out.println("No sorting strategy set.");
         }

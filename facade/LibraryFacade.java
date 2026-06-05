@@ -3,7 +3,10 @@ package facade;
 import database.LibraryDatabase;
 import entity.*;
 import java.time.LocalDate;
+
 import strategy.*;
+import strategy.booksort.*;
+import strategy.transactionsort.*;
 
 public class LibraryFacade {
     private LibraryDatabase database;
@@ -162,13 +165,59 @@ public class LibraryFacade {
         else return "Book is not reserved";
     }
 
-    public void sortBooks(SortStrategyInterface<Book> strategy) {
+    public void sortBooks(BookSortType cmd, SortDirection dir) {
+        SortStrategyInterface<Book> strategy = null;
+
+        switch (cmd) {
+            case TITLE:
+                strategy = new SortTitle();
+                break;
+        
+            case AUTHOR:
+                strategy = new SortAuthor();
+                break;
+
+            case CATEGORY:
+                strategy = new SortCategory();
+                break;
+
+            case DATE:
+                strategy = new SortDatePublished();
+                break;
+
+            case STATE:
+                strategy = new SortState();
+                break;
+            
+            default:
+                strategy = new SortTitle();
+                break;
+        }
         SortContext<Book> sortContext = new SortContext<>(strategy);
-        sortContext.executeSort(database.getBooksList());
+        sortContext.executeSort(database.getBooksList(), dir);
     }
 
-    public void sortTransactions(SortStrategyInterface<Transaction> strategy) {
+    public void sortTransactions(TransactionSortType cmd, SortDirection dir) {
+        SortStrategyInterface<Transaction> strategy = null;
+
+        switch (cmd) {
+            case TYPE:
+                strategy = new SortType();
+                break;
+        
+            case USER:
+                strategy = new SortUser();
+                break;
+
+            case DATE:
+                strategy = new SortTransactionDate();
+                break;
+            
+            default:
+                strategy = new SortType();
+                break;
+        }
         SortContext<Transaction> sortContext = new SortContext<>(strategy);
-        sortContext.executeSort(database.getTransactionsList());
+        sortContext.executeSort(database.getTransactionsList(), dir);
     }
 }

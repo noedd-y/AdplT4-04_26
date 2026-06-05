@@ -3,5 +3,5 @@ package strategy;
 import java.util.ArrayList;
 
 public interface SortStrategyInterface<T> {
-    void sort(ArrayList<T> data);
+    void sort(ArrayList<T> data, SortDirection dir);
 }
