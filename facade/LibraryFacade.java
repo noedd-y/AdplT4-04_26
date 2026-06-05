@@ -7,11 +7,9 @@ import strategy.*;
 
 public class LibraryFacade {
     private LibraryDatabase database;
-    private SortContext sortContext;
 
     public LibraryFacade() {
         database = LibraryDatabase.getInstance();
-        sortContext = new SortContext();
     }
 
     //High authority methods
@@ -24,10 +22,28 @@ public class LibraryFacade {
         return database.findMember(user);
     }
 
+    public String showMemberList(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Member List:\n");
+        for (User member : database.getMembersList()) {
+            sb.append(member.toString()).append("\n");
+        }
+        return sb.toString();
+    }
+
     //Transaction methods, sace transaction to database
     //saveTransaction is private since it is only used internally by the facade, and not exposed to the client
     private void saveTransaction(Transaction transaction) {
         database.saveTransaction(transaction);
+    }
+
+    public String showTransactionHistory() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Transaction History:\n");
+        for (Transaction transaction : database.getTransactionsList()) {
+            sb.append(transaction.toString()).append("\n");
+        }
+        return sb.toString();
     }
 
     //Book methods
@@ -41,6 +57,15 @@ public class LibraryFacade {
 
     public boolean removeBook(Book book) {
         return database.removeBook(book);
+    }
+
+    public String showBookList() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Book List:\n");
+        for (Book book : database.getBooksList()) {
+            sb.append(book.toString()).append("\n");
+        }
+        return sb.toString();
     }
 
     //low authority methods
@@ -137,8 +162,13 @@ public class LibraryFacade {
         else return "Book is not reserved";
     }
 
-    public void sortBooks(SortStrategyInterface strategy) {
-        sortContext.setSortStrategy(strategy);
+    public void sortBooks(SortStrategyInterface<Book> strategy) {
+        SortContext<Book> sortContext = new SortContext<>(strategy);
         sortContext.executeSort(database.getBooksList());
+    }
+
+    public void sortTransactions(SortStrategyInterface<Transaction> strategy) {
+        SortContext<Transaction> sortContext = new SortContext<>(strategy);
+        sortContext.executeSort(database.getTransactionsList());
     }
 }

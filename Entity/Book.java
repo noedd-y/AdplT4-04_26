@@ -95,5 +95,11 @@ public class Book {
             return false;
         return true;
     }
+    @Override
+    public String toString() {
+        return "Book [title=" + title + ", category=" + category + ", author=" + author + ", publishedDate="
+                + publishedDate + ", state=" + state.getState() + "]";
+    }
 
+    
 }

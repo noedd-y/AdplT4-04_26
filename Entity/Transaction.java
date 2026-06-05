@@ -111,5 +111,9 @@ public class Transaction {
         return true;
     }
 
-    
+    @Override
+    public String toString() {
+        return "Transaction [book=" + book + ", user=" + user + ", transactionDate=" + transactionDate + ", returnDate="
+                + returnDate + ", state=" + state + ", type=" + type + "]";
+    }
 }
