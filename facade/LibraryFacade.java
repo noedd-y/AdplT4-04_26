@@ -17,10 +17,6 @@ public class LibraryFacade {
     //High authority methods
     //Member methods
     public boolean addMember(User user) {
-        if(database.findMember(user)) {
-            System.out.println("User already exists in database");
-            return false;
-        }
         return database.addMember(user);
     }
 
@@ -36,18 +32,14 @@ public class LibraryFacade {
 
     //Book methods
     public boolean addBook(Book book) {
-        if (database.findBook(book)) {
-            System.out.println("Book already exists in database");
-            return false;
-        }
         return database.addBook(book);
     }
 
+    public boolean findBook(Book book) {
+        return database.findBook(book);
+    }
+
     public boolean removeBook(Book book) {
-        if (!database.findBook(book)) {
-            System.out.println("Book not found in database");
-            return false;
-        }
         return database.removeBook(book);
     }
 
@@ -55,12 +47,12 @@ public class LibraryFacade {
     //Book state methods - methods for borrowing, returning, and reserving books
     public String borrowBook(Book book, User user) {
         //if book not in database, unable to borrow the book
-        if(!database.findBook(book)) {
+        if(!findBook(book)) {
             return "Book not found in database";
         }
 
         // if user not registered
-        if(!database.findMember(user)) {
+        if(!findMember(user)) {
             return "User not found in database";
         }
 
@@ -77,12 +69,12 @@ public class LibraryFacade {
 
     public String returnBook(Book book, User user) {
         //if book not in database, unable to return the book
-        if(!database.findBook(book)) {
+        if(!findBook(book)) {
             return "Book not found in database";
         }
 
         // if user not registered
-        if(!database.findMember(user)) {
+        if(!findMember(user)) {
             return "User not found in database";
         }
 
@@ -101,12 +93,12 @@ public class LibraryFacade {
 
     public String reserveBook(Book book, User user) {
         //if book not in database, unable to reserve the book
-        if(!database.findBook(book)) {
+        if(!findBook(book)) {
             return "Book not found in database";
         }
         
         // if user not registered
-        if(!database.findMember(user)) {
+        if(!findMember(user)) {
             return "User not found in database";
         }
         
@@ -124,12 +116,12 @@ public class LibraryFacade {
 
     public String cancelReservation(Book book, User user) {
         //if book not in database, unable to cancel reservation
-        if(!database.findBook(book)) {
+        if(!findBook(book)) {
             return "Book not found in database";
         }
 
         // if user not registered
-        if(!database.findMember(user)) {
+        if(!findMember(user)) {
             return "User not found in database";
         }
 

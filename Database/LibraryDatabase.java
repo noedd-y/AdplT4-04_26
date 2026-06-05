@@ -40,7 +40,10 @@ public class LibraryDatabase {
     }
     
     public boolean addMember(User user){
-        return members.add(user);
+        if (!findMember(user)) {
+            return members.add(user);
+        }
+        return false;
     }
 
     public boolean findMember(User user){
