@@ -97,8 +97,11 @@ public class Book {
     }
     @Override
     public String toString() {
-        return "Book [title=" + title + ", category=" + category + ", author=" + author + ", publishedDate="
-                + publishedDate + ", state=" + state.getState() + "]";
+        return title + ",\n" +
+            category + ",\n" +
+            author + ",\n" +
+            "published on " + publishedDate + ",\n" + 
+            "Status: " + state.getState();
     }
 
     
