@@ -1,23 +1,29 @@
 package entity;
 public class User {
-    String namaDepan;
-    String namaBelakang;
-    public User(String namaDepan, String namaBelakang) {
-        this.namaDepan = namaDepan;
-        this.namaBelakang = namaBelakang;
+    String firstName;
+    String lastName;
+    public User(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
-    
-    public String getNamaDepan() {
-        return namaDepan;
+
+    public String getFirstName() {
+        return firstName;
     }
-    public void setNamaDepan(String namaDepan) {
-        this.namaDepan = namaDepan;
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
-    public String getNamaBelakang() {
-        return namaBelakang;
+
+    public String getLastName() {
+        return lastName;
     }
-    public void setNamaBelakang(String namaBelakang) {
-        this.namaBelakang = namaBelakang;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getName() {
+        return firstName + " " + lastName;
     }
     
 }

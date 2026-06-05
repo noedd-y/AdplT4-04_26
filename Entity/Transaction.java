@@ -34,4 +34,30 @@ public class Transaction {
         this(type, book, user, transactionDate);
         this.state = state;
     }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public LocalDate getTransactionDate() {
+        return transactionDate;
+    }
+
+    public LocalDate getReturnDate() {
+        return returnDate;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public TransactionType getType() {
+        return type;
+    }
+
+    
 }

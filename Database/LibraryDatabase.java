@@ -43,4 +43,18 @@ public class LibraryDatabase {
     public void saveTransaction(Transaction trans){
         transactions.add(trans);
     }
+
+    public ArrayList<Book> getBooksList() {
+        return books;
+    }
+
+    public ArrayList<User> getMembersList() {
+        return members;
+    }
+
+    public ArrayList<Transaction> getTransactionsList() {
+        return transactions;
+    }
+
+    
 }
