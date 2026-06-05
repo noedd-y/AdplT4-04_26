@@ -59,5 +59,57 @@ public class Transaction {
         return type;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((book == null) ? 0 : book.hashCode());
+        result = prime * result + ((user == null) ? 0 : user.hashCode());
+        result = prime * result + ((transactionDate == null) ? 0 : transactionDate.hashCode());
+        result = prime * result + ((returnDate == null) ? 0 : returnDate.hashCode());
+        result = prime * result + ((state == null) ? 0 : state.hashCode());
+        result = prime * result + ((type == null) ? 0 : type.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Transaction other = (Transaction) obj;
+        if (book == null) {
+            if (other.book != null)
+                return false;
+        } else if (!book.equals(other.book))
+            return false;
+        if (user == null) {
+            if (other.user != null)
+                return false;
+        } else if (!user.equals(other.user))
+            return false;
+        if (transactionDate == null) {
+            if (other.transactionDate != null)
+                return false;
+        } else if (!transactionDate.equals(other.transactionDate))
+            return false;
+        if (returnDate == null) {
+            if (other.returnDate != null)
+                return false;
+        } else if (!returnDate.equals(other.returnDate))
+            return false;
+        if (state == null) {
+            if (other.state != null)
+                return false;
+        } else if (!state.equals(other.state))
+            return false;
+        if (type != other.type)
+            return false;
+        return true;
+    }
+
     
 }

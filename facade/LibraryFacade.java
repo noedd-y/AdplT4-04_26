@@ -1,20 +1,31 @@
 package facade;
 
-import java.time.LocalDate;
-
 import database.LibraryDatabase;
 import entity.*;
+import java.time.LocalDate;
+import strategy.*;
 
 public class LibraryFacade {
     private LibraryDatabase database;
+    private SortContext sortContext;
 
     public LibraryFacade() {
         database = LibraryDatabase.getInstance();
+        sortContext = new SortContext();
     }
 
+    //High authority methods
     //Member methods
-    public void addMember(User user) {
-        database.addMember(user);
+    public boolean addMember(User user) {
+        if(database.findMember(user)) {
+            System.out.println("User already exists in database");
+            return false;
+        }
+        return database.addMember(user);
+    }
+
+    public boolean findMember(User user) {
+        return database.findMember(user);
     }
 
     //Transaction methods, sace transaction to database
@@ -24,25 +35,33 @@ public class LibraryFacade {
     }
 
     //Book methods
-    public void addBook(Book book) {
-        database.addBook(book);
+    public boolean addBook(Book book) {
+        if (database.findBook(book)) {
+            System.out.println("Book already exists in database");
+            return false;
+        }
+        return database.addBook(book);
     }
 
     public boolean removeBook(Book book) {
-        boolean found = database.findBook(book);
-        if (!found) {
+        if (!database.findBook(book)) {
             System.out.println("Book not found in database");
             return false;
         }
-        database.removeBook(book);
-        return true;
+        return database.removeBook(book);
     }
 
+    //low authority methods
     //Book state methods - methods for borrowing, returning, and reserving books
     public String borrowBook(Book book, User user) {
         //if book not in database, unable to borrow the book
         if(!database.findBook(book)) {
             return "Book not found in database";
+        }
+
+        // if user not registered
+        if(!database.findMember(user)) {
+            return "User not found in database";
         }
 
         //if book is available, set state to Borrowed, and save transaction to database
@@ -60,6 +79,11 @@ public class LibraryFacade {
         //if book not in database, unable to return the book
         if(!database.findBook(book)) {
             return "Book not found in database";
+        }
+
+        // if user not registered
+        if(!database.findMember(user)) {
+            return "User not found in database";
         }
 
         //if book is borrowed, set state to Available, and save transaction to database
@@ -80,7 +104,12 @@ public class LibraryFacade {
         if(!database.findBook(book)) {
             return "Book not found in database";
         }
-
+        
+        // if user not registered
+        if(!database.findMember(user)) {
+            return "User not found in database";
+        }
+        
         //if book is available, set state to Reserved, and save transaction to database
         if (book.reserve()) {
             LocalDate transactionDate = LocalDate.now();
@@ -99,6 +128,11 @@ public class LibraryFacade {
             return "Book not found in database";
         }
 
+        // if user not registered
+        if(!database.findMember(user)) {
+            return "User not found in database";
+        }
+
         //if book is reserved, set state to Available, and save transaction to database
         if (book.cancelReservation()) {
             LocalDate transactionDate = LocalDate.now();
@@ -109,5 +143,10 @@ public class LibraryFacade {
 
         //if book is not reserved, unable to cancel reservation
         else return "Book is not reserved";
+    }
+
+    public void sortBooks(SortStrategyInterface strategy) {
+        sortContext.setSortStrategy(strategy);
+        sortContext.executeSort(database.getBooksList());
     }
 }
