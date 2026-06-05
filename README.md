@@ -99,4 +99,4 @@ Karena reservasi menunggu buku yang sedang di borrow sampai available, observer 
 
 -------
 Note 7.0
-Facade memiliki tanggung jawab untuk menambah data ke database yang seharusnya tidak boleh. akan diberi kelas additional untuk memiliki tanggung jawab itu.
+Facade memiliki tanggung jawab untuk menambah data ke database yang seharusnya tidak boleh. akan diberi kelas additional untuk memiliki tanggung jawab itu dan implementasi design repository.
